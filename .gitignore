@@ -1,0 +1,6 @@
+__pycache__/*
+.venv/*
+
+input.png
+output.png
+reverse.png
