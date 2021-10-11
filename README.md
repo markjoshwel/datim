@@ -46,7 +46,7 @@ optional arguments:
   -h, --help          show this help message and exit
   -o, --overwrite     overwrite without confirmation
   -s, --silent        do not use tqdm even if available
-  -nc, --no-compress  do not compress data using zlib
+  -nc, --no-compress  do not compress data
 ```
 
 ```
@@ -63,7 +63,7 @@ optional arguments:
   -h, --help          show this help message and exit
   -o, --overwrite     overwrite without confirmation
   -s, --silent        do not use tqdm even if available
-  -nc, --no-compress  do not compress data using zlib
+  -nc, --no-compress  do not compress data
 ```
 
 ## Optional Features
