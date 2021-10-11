@@ -111,7 +111,7 @@ def datim(bev: Behaviour) -> None:
 
     # Image Generation
     if bev.tqdm:
-        gbar = tqdm(total=len(fdat), desc="Progress")
+        gbar = tqdm(total=len(fdat), desc="Image Generation")
 
     height = ceil(sqrt(ceil(len(fdat) / 6)))
     image = Image.new(mode="RGB", size=(height, height))

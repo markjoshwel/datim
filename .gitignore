@@ -1,6 +1,12 @@
+# Autogen
 __pycache__/*
+.mypy_cache/*
 .venv/*
 
+# Building
+dist/
+
+# Project-specific
 input.png
 output.png
 reverse.png

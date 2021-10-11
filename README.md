@@ -17,13 +17,13 @@ Data as an image.
 ## Installation
 
 ```
-pip install "git+https://github.com/markjoshwel/datim.git"
+pip install datim
 ```
 
 For [optional features](#optional-features), use this instead:
 
 ```
-pip install "datim[optional] @ git+https://github.com/markjoshwel/datim.git"
+pip install "datim[optional]"
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ optional arguments:
   -h, --help          show this help message and exit
   -o, --overwrite     overwrite without confirmation
   -s, --silent        do not use tqdm even if available
-  -nc, --no-compress  do not compress data using zlib
+  -nc, --no-compress  do not compress data
 ```
 
 ```
@@ -63,7 +63,7 @@ optional arguments:
   -h, --help          show this help message and exit
   -o, --overwrite     overwrite without confirmation
   -s, --silent        do not use tqdm even if available
-  -nc, --no-compress  do not compress data using zlib
+  -nc, --no-compress  do not compress data
 ```
 
 ## Optional Features
