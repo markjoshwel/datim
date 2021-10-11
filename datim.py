@@ -49,13 +49,23 @@ class Behaviour(NamedTuple):
     compress: bool = True
 
 
-def setup() -> Behaviour:
-    parser = ArgumentParser(description="Turns any file into an image")
-    parser.add_argument("input", type=str)
-    parser.add_argument("output", type=str)
-    parser.add_argument("-o", "--overwrite", action="store_true")
-    parser.add_argument("-s", "--silent", action="store_true")
-    parser.add_argument("-nc", "--no-compress", dest="compress", action="store_false")
+def setup(desc: str = "turns any file into an image") -> Behaviour:
+    parser = ArgumentParser(description=desc)
+    parser.add_argument("input", type=str, help="input file path")
+    parser.add_argument("output", type=str, help="output file path")
+    parser.add_argument(
+        "-o", "--overwrite", action="store_true", help="overwrite without confirmation"
+    )
+    parser.add_argument(
+        "-s", "--silent", action="store_true", help="do not use tqdm even if available"
+    )
+    parser.add_argument(
+        "-nc",
+        "--no-compress",
+        dest="compress",
+        action="store_false",
+        help="do not compress data using zlib",
+    )
     args = parser.parse_args()
 
     if Path(args.output).is_file() and not args.overwrite:
@@ -168,4 +178,4 @@ def setup_datim() -> None:
 
 
 def setup_imdat() -> None:
-    imdat(setup())
+    imdat(setup("turns previously converted images into the original file"))

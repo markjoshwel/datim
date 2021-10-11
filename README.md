@@ -24,33 +24,39 @@ datim has two commands, `datim` which converts data into images and `imdat`
 which converts converted data now represented as images back into the original
 data.
 
-```shell
+```
 $ datim
-usage: datim [-h] [-o] [-s] input output
+usage: datim [-h] [-o] [-s] [-nc] input output
+
+turns any file into an image
+
+positional arguments:
+  input               input file path
+  output              output file path
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -o, --overwrite     overwrite without confirmation
+  -s, --silent        do not use tqdm even if available
+  -nc, --no-compress  do not compress data using zlib
 ```
 
-```shell
+```
 $ imdat
-imdat: datim [-h] [-o] [-s] input output
+usage: imdat [-h] [-o] [-s] [-nc] input output
+
+turns previously converted images into the original file
+
+positional arguments:
+  input               input file path
+  output              output file path
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -o, --overwrite     overwrite without confirmation
+  -s, --silent        do not use tqdm even if available
+  -nc, --no-compress  do not compress data using zlib
 ```
-
-- `input`
-  input file path
-
-- `output`
-  output file path
-
-- `-h, --help`
-  help message
-
-- `-o, --overwrite`
-  overwrite without confirmation
-
-- `-s, --silent`
-  do not use [tqdm](https://github.com/tqdm/tqdm) even if available
-
-- `-o, --original`
-  do not compress data using zlib
 
 ## Details
 
