@@ -15,10 +15,11 @@ tqdm = {version = "^4.62.3", optional = true}
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
 poetry2setup = "^1.0.0"
+mypy = "^0.910"
 
 [tool.poetry.scripts]
-datim = "datim:datim"
-imdat = "datim:imdat"
+datim = "datim:setup_datim"
+imdat = "datim:setup_imdat"
 
 [tool.poetry.extras]
 progress = ["tqdm"]
