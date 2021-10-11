@@ -1,9 +1,9 @@
+from lz4.frame import compress, decompress  # type: ignore
 from argparse import ArgumentParser
+from typing import NamedTuple
+from random import randint
 from math import ceil, sqrt
 from pathlib import Path
-from zlib import compress, decompress
-from zlib import error as zliberror
-from typing import NamedTuple, List, Optional
 
 from PIL import Image, ImageColor  # type: ignore
 
@@ -40,6 +40,13 @@ def b15_int(h: str) -> int:
     return res
 
 
+def gen(h: str = "") -> str:
+    for i in range(6 - len(h)):
+        h += "0123456789abcdef"[randint(0, 15)]
+
+    return h
+
+
 class Behaviour(NamedTuple):
     input: str
     output: str
@@ -64,7 +71,7 @@ def setup(desc: str = "turns any file into an image") -> Behaviour:
         "--no-compress",
         dest="compress",
         action="store_false",
-        help="do not compress data using zlib",
+        help="do not compress data",
     )
     args = parser.parse_args()
 
@@ -115,11 +122,11 @@ def datim(bev: Behaviour) -> None:
     for ph in range(image.size[0]):
         for pw in range(image.size[1]):
             if lb > len(fdat):  # out of data
-                colour = (0, 0, 0)
+                colour = ImageColor.getcolor(f"#{gen()}", "RGB")
 
             elif ub > len(fdat):  # last pixel
                 lpi = int((ceil(len(fdat) / 6) - 1) * 6)
-                colour = ImageColor.getcolor(f"#{fdat[lpi:]:0<6}", "RGB")
+                colour = ImageColor.getcolor(f"#{gen(fdat[lpi:])}", "RGB")
 
             else:
                 colour = ImageColor.getcolor(f"#{fdat[lb:ub]}", "RGB")
@@ -145,12 +152,12 @@ def imdat(bev: Behaviour) -> None:
     pax = image.load()
 
     if bev.tqdm:
-        gbar = tqdm(total=image.size[0] * image.size[1], desc="Progress")
+        gbar = tqdm(total=image.size[0] * image.size[1], desc="Image Reversal")
 
     for ph in range(image.size[0]):
         for pw in range(image.size[1]):
-            r, g, b = pax[pw, ph]  # type: ignore
-            rhex += f"{r:02x}{g:02x}{b:02x}"
+            colour = pax[pw, ph]  # type: ignore
+            rhex += f"{colour[0]:02x}{colour[1]:02x}{colour[2]:02x}"
 
             if bev.tqdm:
                 gbar.update()  # type: ignore
@@ -169,7 +176,7 @@ def imdat(bev: Behaviour) -> None:
         try:
             of.write(decompress(rdat))
 
-        except zliberror:
+        except RuntimeError:
             of.write(rdat)
 
 

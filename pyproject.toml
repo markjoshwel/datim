@@ -11,6 +11,7 @@ readme = "README.md"
 python = "^3.6.2"
 Pillow = "^8.3.2"
 tqdm = {version = "^4.62.3", optional = true}
+lz4 = "^3.1.3"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -22,7 +23,7 @@ datim = "datim:setup_datim"
 imdat = "datim:setup_imdat"
 
 [tool.poetry.extras]
-progress = ["tqdm"]
+optional = ["tqdm"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

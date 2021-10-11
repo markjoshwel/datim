@@ -6,6 +6,8 @@ Data as an image.
 
 - [Usage](#usage)
 
+- [Optional Features](#optional-features)
+
 - [Details](#details)
 
 - [Potential Improvement](#potential-improvement)
@@ -16,6 +18,12 @@ Data as an image.
 
 ```
 pip install "git+https://github.com/markjoshwel/datim.git"
+```
+
+For [optional features](#optional-features), use this instead:
+
+```
+pip install "datim[optional] @ git+https://github.com/markjoshwel/datim.git"
 ```
 
 ## Usage
@@ -57,6 +65,13 @@ optional arguments:
   -s, --silent        do not use tqdm even if available
   -nc, --no-compress  do not compress data using zlib
 ```
+
+## Optional Features
+
+- **[tqdm](https://github.com/tqdm/tqdm) Support**
+
+  If `tqdm` is installed, a progress bar is shown during image generation
+  (`datim`) and image reversal (`imdat`).
 
 ## Details
 
