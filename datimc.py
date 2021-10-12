@@ -28,37 +28,55 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 """
 
-from random import randint
-from typing import Union, Tuple
+from typing import Dict, Union, Tuple
+
+
+c16: Dict[str, int] = {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "a": 10,
+    "b": 11,
+    "c": 12,
+    "d": 13,
+    "e": 14,
+    "f": 15,
+}
 
 
 def h6_rgba(
     h: str, alpha: bool = True
 ) -> Union[Tuple[int, int, int], Tuple[int, int, int, int]]:
-    chi: str = "0123456789abcdef"
     r: int = 0
     g: int = 0
     b: int = 0
 
-    rlh = h[::-1].lower()
+    rlh: str = h[::-1].lower()
 
     # aabbggrr
     # 87654321
 
     for bpl, chr in enumerate(rlh[-2:]):
-        r += (16 ** bpl) * chi.index(chr)
+        r += (16 ** bpl) * c16[chr]
 
     for bpl, chr in enumerate(rlh[-4:-2]):
-        g += (16 ** bpl) * chi.index(chr)
+        g += (16 ** bpl) * c16[chr]
 
     for bpl, chr in enumerate(rlh[-6:-4]):
-        b += (16 ** bpl) * chi.index(chr)
+        b += (16 ** bpl) * c16[chr]
 
     if alpha:
         a: int = 0
 
         for bpl, chr in enumerate(rlh[:-6]):
-            a += (16 ** bpl) * chi.index(chr)
+            a += (16 ** bpl) * c16[chr]
 
         return (r, g, b, a)
 
@@ -69,28 +87,25 @@ def h6_rgba(
 def int_b15(n: int) -> str:
     res: str = ""
     rem: int = 0
-    chi: str = "0123456789abcde"
+    c15: str = "0123456789abcde"
 
     while n > 0:
         rem = n % 15
-        res = chi[rem] + res
+        res = c15[rem] + res
         n //= 15
 
     return res
 
 
 def b15_int(h: str) -> int:
-    chi: str = "0123456789abcde"
     res: int = 0
 
     for plv, chr in enumerate(h[::-1]):
-        res += (15 ** plv) * chi.index(chr)
+        res += (15 ** plv) * c16[chr]
 
     return res
 
 
-def gen(h: str = "") -> str:
-    for _ in range(6 - len(h)):
-        h += "0123456789abcdef"[randint(0, 15)]
-
+def gen(h: str = "", alpha: bool = True) -> str:
+    h += "0" * ((8 if alpha else 6) - len(h))
     return h
