@@ -8,6 +8,8 @@ src/*/__pycache__/*
 # Building
 build/*
 dist/*
+datim.egg-info/*
+datimc.*.so
 
 # Project-specific
 experiments/*

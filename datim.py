@@ -1,6 +1,6 @@
 """
-datimp (datim pure)
--------------------
+datim (datim pure)
+------------------
 
 This is free and unencumbered software released into the public domain.
 
@@ -159,7 +159,7 @@ def setup(desc: str = ""):
         help="do not compress data",
     )
     parser.add_argument(
-        "-nc",
+        "-na",
         "--no-alpha",
         dest="alpha",
         action="store_false",
@@ -205,11 +205,11 @@ def datim(bev: Behaviour) -> None:
 
     if bev.compress:
         cdat = compress(dat).hex()
-        fdat = int_b15(len(cdat)) + "1" if bev.alpha else "0" + "F" + cdat
+        fdat = int_b15(len(cdat)) + "F" + cdat
 
     else:
         hdat = dat.hex()
-        fdat = int_b15(len(hdat)) + "1" if bev.alpha else "0" + "F" + hdat
+        fdat = int_b15(len(hdat)) + "F" + hdat
 
     isz: int = ceil(sqrt(ceil(len(fdat) / 6)))
     img: Image.Image = Image.new(mode="RGBA" if bev.alpha else "RGB", size=(isz, isz))
@@ -278,23 +278,31 @@ def imdat(bev: Behaviour) -> None:
     img.close()
 
 
-def setup_datim():
+def setup_datim() -> None:
+    datim(setup("turns any file into an image"))
+
+
+def setupc_datim() -> None:
     try:
         import datimc
 
     except ImportError:
-        datim(setup("turns any file into an image"))
+        setup_datim()
 
     else:
         datimc.datim(datimc.setup("turns any file into an image"))
 
 
-def setup_imdat():
+def setup_imdat() -> None:
+    imdat(setup("turns previously converted images into the original file"))
+
+
+def setupc_imdat() -> None:
     try:
         import datimc
 
     except ImportError:
-        imdat(setup("turns previously converted images into the original file"))
+        setup_imdat()
 
     else:
         datimc.imdat(

@@ -68,13 +68,28 @@ c16: Dict[str, int] = {
 }
 
 
-class Behaviour(NamedTuple):
-    input: Path
-    output: Path
-    overwrite: bool
-    tqdm: bool
-    compress: bool = True
-    alpha: bool = True
+# TODO: Revert on mypy 0.920 (mypyc#861)
+#       Once done adjust pyproject.toml
+#
+# class Behaviour(NamedTuple):
+#     input: Path
+#     output: Path
+#     overwrite: bool
+#     tqdm: bool
+#     compress: bool = True
+#     alpha: bool = True
+
+Behaviour = NamedTuple(
+    "Behaviour",
+    [
+        ("input", Path),
+        ("output", Path),
+        ("overwrite", bool),
+        ("tqdm", bool),
+        ("compress", bool),
+        ("alpha", bool),
+    ],
+)
 
 
 def h6_rgba(
@@ -160,7 +175,7 @@ def setup(desc: str = ""):
         help="do not compress data",
     )
     parser.add_argument(
-        "-nc",
+        "-na",
         "--no-alpha",
         dest="alpha",
         action="store_false",
@@ -206,11 +221,11 @@ def datim(bev: Behaviour) -> None:
 
     if bev.compress:
         cdat = compress(dat).hex()
-        fdat = int_b15(len(cdat)) + "1" if bev.alpha else "0" + "F" + cdat
+        fdat = int_b15(len(cdat)) + "F" + cdat
 
     else:
         hdat = dat.hex()
-        fdat = int_b15(len(hdat)) + "1" if bev.alpha else "0" + "F" + hdat
+        fdat = int_b15(len(hdat)) + "F" + hdat
 
     isz: int = ceil(sqrt(ceil(len(fdat) / 6)))
     img: Image.Image = Image.new(mode="RGBA" if bev.alpha else "RGB", size=(isz, isz))

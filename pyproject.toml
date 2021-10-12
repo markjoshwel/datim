@@ -1,11 +1,13 @@
 [tool.poetry]
 name = "datim"
-version = "1.1.1"
+version = "2.0.0"
 description = "Data as an image."
 authors = ["Your Name <you@example.com>"]
 license = "Unlicense"
 repository = "https://github.com/markjoshwel/datim"
 readme = "README.md"
+build = "build.py"
+include = ["datimc.py"]
 
 [tool.poetry.dependencies]
 python = "^3.6.2"
@@ -16,19 +18,21 @@ types-Pillow = "^8.3.6"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
-poetry2setup = "^1.0.0"
 mypy = "^0.910"
+poetry2setup = "^1.0.0"
 
 [tool.poetry.scripts]
-datim = "datim:setup_datim"
-imdat = "datim:setup_imdat"
+datim = "datim:setupc_datim"
+datimp = "datim:setup_datim"
+imdat = "datim:setupc_imdat"
+imdatp = "datim:setup_imdat"
 
 [tool.poetry.extras]
 optional = ["tqdm"]
 
 [tool.mypy]
-exclude = "setup.py"
+exclude = "build/"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry>=1.0.0", "mypy"]
+build-backend = "poetry.masonry.api"

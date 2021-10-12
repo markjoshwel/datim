@@ -209,7 +209,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-pillow"
-version = "8.3.6"
+version = "8.3.7"
 description = "Typing stubs for Pillow"
 category = "main"
 optional = false
@@ -485,8 +485,8 @@ typed-ast = [
     {file = "typed_ast-1.4.3.tar.gz", hash = "sha256:fb1bbeac803adea29cedd70781399c99138358c26d05fcbd23c13016b7f5ec65"},
 ]
 types-pillow = [
-    {file = "types-Pillow-8.3.6.tar.gz", hash = "sha256:e84f596b5a914a0823101a2a7611fbf63cddf047bda0fef3ab3aed883556fb92"},
-    {file = "types_Pillow-8.3.6-py3-none-any.whl", hash = "sha256:99adeb18f4b965255bd71807edcd5f575062c050d482dcfdc6838ee35a24cccb"},
+    {file = "types-Pillow-8.3.7.tar.gz", hash = "sha256:8f1d4eaedc0aa8c8fe4f912daff31abd79f04a42d9fda1b3f30c442f906fcff4"},
+    {file = "types_Pillow-8.3.7-py3-none-any.whl", hash = "sha256:c76f76459e505b6621d2aaa66a69d3a4b123ccea3563d8aad200db1c16e8a8fa"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
