@@ -10,6 +10,7 @@ build/*
 dist/*
 
 # Project-specific
+experiments/*
 input.png
 output.png
 reverse.png
