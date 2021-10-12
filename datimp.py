@@ -1,6 +1,6 @@
 """
-datimc (datim compiled)
------------------------
+datimp (datim pure)
+-------------------
 
 This is free and unencumbered software released into the public domain.
 
@@ -31,12 +31,11 @@ For more information, please refer to <http://unlicense.org/>
 from argparse import ArgumentParser
 from math import ceil, sqrt
 from pathlib import Path
-from os import _exit
 
 from typing import Dict, Union, Tuple, NamedTuple
 
 from lz4.frame import compress, decompress  # type: ignore
-from PIL import Image
+from PIL import Image, ImageColor
 
 try:
     from tqdm import trange  # type: ignore
@@ -174,7 +173,7 @@ def setup(desc: str = ""):
     if not ip.is_file():
         if ip.is_dir():
             print(f"input file '{args.input}' is a directory")
-            _exit(-1)
+            exit(-1)
 
         else:
             print(f"input file '{args.input}' does not exist")
@@ -184,11 +183,11 @@ def setup(desc: str = ""):
             query = input(f"overwrite {args.output}? [Y/N]: ")
 
             if not (query == "Y" or query == "y"):
-                _exit(-1)
+                exit(-1)
 
     elif op.is_dir():
         print(f"output file '{args.output}' is a directory")
-        _exit(-1)
+        exit(-1)
 
     return Behaviour(
         input=ip,
@@ -241,8 +240,6 @@ def datim(bev: Behaviour) -> None:
     img.close()
     inp.close()
 
-    _exit(0)
-
 
 def imdat(bev: Behaviour) -> None:
     img: Image.Image = Image.open(bev.input)
@@ -280,4 +277,26 @@ def imdat(bev: Behaviour) -> None:
 
     img.close()
 
-    _exit(0)
+
+def setup_datim():
+    try:
+        import datimc
+
+    except ImportError:
+        datim(setup("turns any file into an image"))
+
+    else:
+        datimc.datim(datimc.setup("turns any file into an image"))
+
+
+def setup_imdat():
+    try:
+        import datimc
+
+    except ImportError:
+        imdat(setup("turns previously converted images into the original file"))
+
+    else:
+        datimc.imdat(
+            datimc.setup("turns previously converted images into the original file")
+        )
