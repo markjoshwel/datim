@@ -31,6 +31,7 @@ For more information, please refer to <http://unlicense.org/>
 from argparse import ArgumentParser
 from math import ceil, sqrt
 from pathlib import Path
+from os import _exit
 
 from typing import Dict, Union, Tuple, NamedTuple
 
@@ -219,16 +220,10 @@ def datim(bev: Behaviour) -> None:
     lb = 0
     ub = pxl
 
-    if bev.tqdm:
-        rng1 = trange(img.size[0], position=1)
-        rng2 = trange(img.size[1], position=0)
+    rng = trange(img.size[0]) if bev.tqdm else range(img.size[0])
 
-    else:
-        rng1 = range(img.size[0])
-        rng2 = range(img.size[1])
-
-    for y in rng1:
-        for x in rng2:
+    for y in range(img.size[1]):
+        for x in rng:
             if lb > len(fdat):  # out of data
                 pax[x, y] = (0, 0, 0, 0) if bev.alpha else (0, 0, 0)  # type: ignore
 
@@ -258,16 +253,10 @@ def imdat(bev: Behaviour) -> None:
 
     alpha: bool = True if len(pax[0, 0]) == 4 else False  # type: ignore
 
-    if bev.tqdm:
-        rng1 = trange(img.size[0], position=1)
-        rng2 = trange(img.size[1], position=0)
+    rng = trange(img.size[0]) if bev.tqdm else range(img.size[0])
 
-    else:
-        rng1 = range(img.size[0])
-        rng2 = range(img.size[1])
-
-    for y in rng1:
-        for x in rng2:
+    for y in range(img.size[1]):
+        for x in rng:
             clr = pax[x, y]  # type: ignore
             rha += f"{clr[0]:02x}{clr[1]:02x}{clr[2]:02x}"
 
@@ -300,6 +289,7 @@ def setupc_datim() -> None:
 
     else:
         datimc.datim(datimc.setup("(compiled) turns any file into an image"))
+        _exit(0)
 
 
 def setup_imdat() -> None:
@@ -315,5 +305,8 @@ def setupc_imdat() -> None:
 
     else:
         datimc.imdat(
-            datimc.setup("(compiled) turns previously converted images into the original file")
+            datimc.setup(
+                "(compiled) turns previously converted images into the original file"
+            )
         )
+        _exit(0)

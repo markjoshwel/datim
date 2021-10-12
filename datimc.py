@@ -235,16 +235,10 @@ def datim(bev: Behaviour) -> None:
     lb = 0
     ub = pxl
 
-    if bev.tqdm:
-        rng1 = trange(img.size[0], position=1)
-        rng2 = trange(img.size[1], position=0)
+    rng = trange(img.size[0]) if bev.tqdm else range(img.size[0])
 
-    else:
-        rng1 = range(img.size[0])
-        rng2 = range(img.size[1])
-
-    for y in rng1:
-        for x in rng2:
+    for y in range(img.size[1]):
+        for x in rng:
             if lb > len(fdat):  # out of data
                 pax[x, y] = (0, 0, 0, 0) if bev.alpha else (0, 0, 0)  # type: ignore
 
@@ -270,20 +264,14 @@ def imdat(bev: Behaviour) -> None:
 
     if not (img.mode == "RGB" or img.mode == "RGBA"):
         print(f"input file '{bev.input}' is not RGB or RGBA")
-        _exit(-1)
+        exit(-1)
 
     alpha: bool = True if len(pax[0, 0]) == 4 else False  # type: ignore
 
-    if bev.tqdm:
-        rng1 = trange(img.size[0], position=1)
-        rng2 = trange(img.size[1], position=0)
+    rng = trange(img.size[0]) if bev.tqdm else range(img.size[0])
 
-    else:
-        rng1 = range(img.size[0])
-        rng2 = range(img.size[1])
-
-    for y in rng1:
-        for x in rng2:
+    for y in range(img.size[1]):
+        for x in rng:
             clr = pax[x, y]  # type: ignore
             rha += f"{clr[0]:02x}{clr[1]:02x}{clr[2]:02x}"
 
