@@ -36,7 +36,7 @@ from os import _exit
 from typing import Dict, Union, Tuple, NamedTuple
 
 from lz4.frame import compress, decompress  # type: ignore
-from PIL import Image, ImageColor
+from PIL import Image  # type: ignore
 
 try:
     from tqdm import trange  # type: ignore

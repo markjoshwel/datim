@@ -1,20 +1,19 @@
 [tool.poetry]
 name = "datim"
-version = "2.0.0"
+version = "2.0.1"
 description = "Data as an image."
 authors = ["Your Name <you@example.com>"]
 license = "Unlicense"
 repository = "https://github.com/markjoshwel/datim"
 readme = "README.md"
 build = "build.py"
-include = ["datimc.py", "UNLICENSE", "CHANGELOG.md"]
+include = ["datimc.py", "CHANGELOG.md"]
 
 [tool.poetry.dependencies]
 python = "^3.6.2"
 Pillow = "^8.3.2"
 tqdm = {version = "^4.62.3", optional = true}
 lz4 = "^3.1.3"
-types-Pillow = "^8.3.6"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -34,5 +33,9 @@ optional = ["tqdm"]
 exclude = "build/"
 
 [build-system]
-requires = ["poetry>=1.0.0", "mypy"]
-build-backend = "poetry.masonry.api"
+requires = [
+    "poetry-core>=1.0.0",
+    "mypy",
+    "setuptools",
+]
+build-backend = "poetry.core.masonry.api"

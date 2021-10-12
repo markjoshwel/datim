@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.1 (current)
+
+Minor change in build method
+
+### Changed
+
+- Use poetry-core instead of poetry
+
+### Removed
+
+- Dependency: types-Pillow (keeps on failing build process)
+
 ## 2.0.0 (2021-10-13)
 
 Codebase refactor, compilation and performance improvements
