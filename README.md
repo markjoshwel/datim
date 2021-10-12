@@ -1,4 +1,4 @@
-# datim
+# datim 2.0.0
 
 Data as an image.
 
@@ -16,15 +16,25 @@ Data as an image.
 
 ## Installation
 
+<!---
+### Compiled Variant
+
+datim will be compiled with mypyc for this variant.
+-->
+
 ```
 pip install datim
 ```
 
-For [optional features](#optional-features), use this instead:
+<!---
+### Standard Variant
+
+datim is installed as a pure Python module.
 
 ```
-pip install "datim[optional]"
+pip install "datim[standard]"
 ```
+-->
 
 ## Usage
 
