@@ -7,7 +7,7 @@ license = "Unlicense"
 repository = "https://github.com/markjoshwel/datim"
 readme = "README.md"
 build = "build.py"
-include = ["datimc.py"]
+include = ["datimc.py", "UNLICENSE", "CHANGELOG.md"]
 
 [tool.poetry.dependencies]
 python = "^3.6.2"

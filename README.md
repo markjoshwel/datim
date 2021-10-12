@@ -4,9 +4,8 @@ Data as an image.
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Optional Features](#optional-features)
+- [Changelog](CHANGELOG.md)
 - [Details](#details)
-- [Potential Improvement](#potential-improvement)
 - [License](#license)
 
 ## Installation
@@ -14,6 +13,8 @@ Data as an image.
 ```
 pip install datim
 ```
+
+Alternatively, install `datim[optional]` and get progress bar support.
 
 ## Usage
 
@@ -64,13 +65,6 @@ optional arguments:
   -nc, --no-compress  do not compress data
   -na, --no-alpha     do not use alpha channel
 ```
-
-## Optional Features
-
-- **[tqdm](https://github.com/tqdm/tqdm) Support**
-
-  If `tqdm` is installed, a progress bar is shown during image generation
-  (`datim`) and image reversal (`imdat`).
 
 ## Details
 
