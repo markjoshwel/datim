@@ -23,8 +23,8 @@ poetry2setup = "^1.0.0"
 
 [tool.poetry.scripts]
 datim = "datim:setupc_datim"
-datimp = "datim:setup_datim"
 imdat = "datim:setupc_imdat"
+datimp = "datim:setup_datim"
 imdatp = "datim:setup_imdat"
 
 [tool.poetry.extras]
