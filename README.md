@@ -33,7 +33,7 @@ If unavailable, it will fallback to the pure Python variant of datim.
 $ datim
 usage: datim [-h] [-o] [-np] [-nc] [-na] input output
 
-turns any file into an image
+(compiled) turns any file into an image
 
 positional arguments:
   input               input file path
@@ -51,7 +51,7 @@ optional arguments:
 $ imdat
 usage: imdat [-h] [-o] [-np] [-nc] [-na] input output
 
-turns previously converted images into the original file
+(compiled) turns previously converted images into the original file
 
 positional arguments:
   input               input file path

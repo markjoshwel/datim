@@ -172,28 +172,28 @@ def setup(desc: str = ""):
 
     if not ip.is_file():
         if ip.is_dir():
-            print(f"input file '{args.input}' is a directory")
+            print(f"input file '{ip}' is a directory")
             exit(-1)
 
         else:
-            print(f"input file '{args.input}' does not exist")
+            print(f"input file '{ip}' does not exist")
 
     if op.is_file():
         if args.overwrite:
-            query = input(f"overwrite {args.output}? [Y/N]: ")
+            query = input(f"overwrite {op}? [Y/N]: ")
 
             if not (query == "Y" or query == "y"):
                 exit(-1)
 
     elif op.is_dir():
-        print(f"output file '{args.output}' is a directory")
+        print(f"output file '{op}' is a directory")
         exit(-1)
 
     return Behaviour(
         input=ip,
         output=op,
         overwrite=args.overwrite,
-        tqdm=(True if TQDM_AVAILABLE and not args.progress else False),
+        tqdm=(True if TQDM_AVAILABLE and args.progress else False),
         compress=args.compress,
         alpha=args.alpha,
     )
@@ -205,36 +205,42 @@ def datim(bev: Behaviour) -> None:
 
     if bev.compress:
         cdat = compress(dat).hex()
-        fdat = int_b15(len(cdat)) + "F" + cdat
+        fdat = int_b15(len(cdat)) + "f" + cdat
 
     else:
         hdat = dat.hex()
-        fdat = int_b15(len(hdat)) + "F" + hdat
+        fdat = int_b15(len(hdat)) + "f" + hdat
 
-    isz: int = ceil(sqrt(ceil(len(fdat) / 6)))
+    pxl: int = 8 if bev.alpha else 6  # pixel length
+    isz: int = ceil(sqrt(ceil(len(fdat) / pxl)))
     img: Image.Image = Image.new(mode="RGBA" if bev.alpha else "RGB", size=(isz, isz))
     pax = img.load()  # type: ignore
 
     lb = 0
-    ub = 6
+    ub = pxl
 
     if bev.tqdm:
-        rng = trange
+        rng1 = trange(img.size[0], position=1)
+        rng2 = trange(img.size[1], position=0)
 
     else:
-        rng = range
+        rng1 = range(img.size[0])
+        rng2 = range(img.size[1])
 
-    for y in rng(img.size[0]):
-        for x in rng(img.size[1]):
+    for y in rng1:
+        for x in rng2:
             if lb > len(fdat):  # out of data
                 pax[x, y] = (0, 0, 0, 0) if bev.alpha else (0, 0, 0)  # type: ignore
 
             elif ub > len(fdat):  # last pixel
-                lpi = int((ceil(len(fdat) / 6) - 1) * 6)
+                lpi = int((ceil(len(fdat) / pxl) - 1) * pxl)
                 pax[x, y] = h6_rgba(gen(fdat[lpi:], alpha=bev.alpha), alpha=bev.alpha)  # type: ignore
 
             else:
                 pax[x, y] = h6_rgba(fdat[lb:ub], alpha=bev.alpha)  # type: ignore
+
+            lb += pxl
+            ub += pxl
 
     img.save(str(bev.output.absolute()))
     img.close()
@@ -247,23 +253,26 @@ def imdat(bev: Behaviour) -> None:
     pax = img.load()  # type: ignore
 
     if not (img.mode == "RGB" or img.mode == "RGBA"):
-        print("input file ")
-
-    if bev.tqdm:
-        rng = trange
-
-    else:
-        rng = range
+        print(f"input file '{bev.input}' is not RGB or RGBA")
+        exit(-1)
 
     alpha: bool = True if len(pax[0, 0]) == 4 else False  # type: ignore
 
-    for y in rng(img.size[0]):
-        for x in rng(img.size[1]):
+    if bev.tqdm:
+        rng1 = trange(img.size[0], position=1)
+        rng2 = trange(img.size[1], position=0)
+
+    else:
+        rng1 = range(img.size[0])
+        rng2 = range(img.size[1])
+
+    for y in rng1:
+        for x in rng2:
             clr = pax[x, y]  # type: ignore
             rha += f"{clr[0]:02x}{clr[1]:02x}{clr[2]:02x}"
 
             if alpha:
-                rha + f"{clr[3]:02x}"
+                rha += f"{clr[3]:02x}"
 
     hed, rem = rha.split("f", 1)
     dat: bytes = bytes.fromhex(rem[: b15_int(hed)])
@@ -290,7 +299,7 @@ def setupc_datim() -> None:
         setup_datim()
 
     else:
-        datimc.datim(datimc.setup("turns any file into an image"))
+        datimc.datim(datimc.setup("(compiled) turns any file into an image"))
 
 
 def setup_imdat() -> None:
@@ -306,5 +315,5 @@ def setupc_imdat() -> None:
 
     else:
         datimc.imdat(
-            datimc.setup("turns previously converted images into the original file")
+            datimc.setup("(compiled) turns previously converted images into the original file")
         )
