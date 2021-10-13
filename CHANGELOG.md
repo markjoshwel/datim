@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.1 (current)
+## 2.0.1 (2021-10-13)
 
 Minor change in build method
 
