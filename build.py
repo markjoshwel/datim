@@ -11,6 +11,8 @@ try:
     # check for mypy
     from mypyc.build import mypycify
 
+    print("mypyc present, compiling datimc")
+
     def build(setup_kwargs):
         setup_kwargs.update(
             {
