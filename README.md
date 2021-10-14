@@ -1,4 +1,4 @@
-# datim 2.0.1
+# datim 2.0.2
 
 Data as an image.
 

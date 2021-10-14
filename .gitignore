@@ -13,6 +13,7 @@ datimc.*.so
 
 # Project-specific
 experiments/*
+archive/*
 input.png
 output.png
 reverse.png

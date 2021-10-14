@@ -6,19 +6,10 @@ import platform
 try:
     # check for pypy
     if platform.python_implementation() == "PyPy":
-        raise ImportError("PyPi detected")
+        raise ImportWarning()
 
     # check for mypy
     from mypyc.build import mypycify
-
-except ImportError as e:
-    print("There was an error during datim compilation:", e)
-
-    def build(setup_kwargs):
-        pass
-
-
-else:
 
     def build(setup_kwargs):
         setup_kwargs.update(
@@ -26,3 +17,17 @@ else:
                 "ext_modules": mypycify(["datimc.py"]),
             }
         )
+
+        return True
+
+
+except ImportError:
+    print("mypyc is not installed, datim will not be compiled.")
+
+except ImportWarning:
+    print("PyPy detected, datim will not be compiled.")
+
+else:
+
+    def build(setup_kwargs):
+        return False

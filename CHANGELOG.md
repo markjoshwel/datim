@@ -1,6 +1,16 @@
 # Changelog
 
-## 2.0.1 (2021-10-13)
+## 2.0.2 @ current
+
+### Added
+
+- Dependency (Development/Build): types-Pillow
+
+### Changed
+
+- If datimc compilation fails, install will still proceed
+
+## 2.0.1 @ 71ecc53 (2021-10-13)
 
 Minor change in build method
 
@@ -12,7 +22,7 @@ Minor change in build method
 
 - Dependency: types-Pillow (keeps on failing build process)
 
-## 2.0.0 (2021-10-13)
+## 2.0.0 @ 32dc4cd (2021-10-13)
 
 Codebase refactor, compilation and performance improvements
 
@@ -23,6 +33,7 @@ Codebase refactor, compilation and performance improvements
 - `datimc.h6_rgba` to convert RGB(A) hex codes to 3/4 integer tuples, replacing
   PIL.ImageColor.getcolor, which used regex
 - `Behaviour.alpha` of type `bool` and default value `True`
+- `CHANGELOG.md` in distributed packages
 
 ### Changed
 
@@ -39,7 +50,7 @@ Codebase refactor, compilation and performance improvements
 - `Behaviour.silent` due to `Behaviour.tqdm` doing its job, decide if the
   progress bar is needed
 
-## 1.1.1 (2021-10-12)
+## 1.1.1 @ def4501 (2021-10-12)
 
 ### Added
 
@@ -49,7 +60,7 @@ Codebase refactor, compilation and performance improvements
 
 - Progress bar text
 
-## 1.1.0 (2021-10-12)
+## 1.1.0 @ 667e885 (2021-10-12)
 
 Minor changes
 
@@ -61,6 +72,6 @@ Minor changes
 
 - Compression algorithm from zlib to lz4
 
-## 1.0.0 (2021-10-11)
+## 1.0.0 @ 1910638 (2021-10-11)
 
 Working product
