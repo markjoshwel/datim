@@ -71,7 +71,9 @@ optional arguments:
 An image created by datim is made up by the following:
 `[header][data][trailing random data]`
 
-- `[header] -> "<length of [data] hex array encoded in base15 hex>F"`
+- `[header]`
+
+  `"<length of [data] hex array encoded in base15 hex>F"`
 
   This is made up of a base15 hex array (0-E) denoting the length of the
   (compressed) data hex array. It is then suffixed with a hex `F`, acting as a
