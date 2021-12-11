@@ -1,3 +1,5 @@
+# This project is in an archived state, and no further development will be done. Please fork the project if it interests you.
+
 # datim 2.0.1
 
 Data as an image.
@@ -5,7 +7,7 @@ Data as an image.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Changelog](CHANGELOG.md)
-- [Details](#details)
+- [Technical Details](#technical-details)
 - [License](#license)
 
 ## Installation
@@ -66,10 +68,10 @@ optional arguments:
   -na, --no-alpha     do not use alpha channel
 ```
 
-## Details
+## Technical Details
 
 An image created by datim is made up by the following:
-`[header][data][trailing random data]`
+`[header][data][trailing 0s]`
 
 - `[header] -> "<length of [data] hex array encoded in base15 hex>F"`
 
@@ -87,7 +89,9 @@ An image created by datim is made up by the following:
 
   After the `[data]` hex array are trailing `0`s. Before 2.0.0, trailing data
   were randomly generated for cosmetic purposes, but was removed due for
-  performance.
+  performance. The reason for the trailing data is due to all output images
+  being squares which may fit data that has a length perfectly square
+  root-able, which most data is not.
 
 ## License
 
