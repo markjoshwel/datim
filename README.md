@@ -1,6 +1,7 @@
-# This project is in an archived state, and no further development will be done. Please fork the project if it interests you.
-
 # datim 2.0.1
+
+| This project has been archived. |
+| ---- |
 
 Data as an image.
 
